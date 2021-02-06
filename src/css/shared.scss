@@ -1,0 +1,26 @@
+
+// 主题色
+$themeColor: rgb(248, 136, 7);
+
+// 白色
+$activeColor: #fff;
+// 常用的字体颜色
+$fontColor: #333;
+
+// 常用背景色 （用于页面中）
+$backgroundColor: rgb(247, 248, 250);
+
+// 主题背景色
+$themeBackgroundColor: rgb(84, 92, 100);
+// 主题出发颜色
+$themeActiveBackgroundColor: rgb(160, 173, 187);
+
+// 主题被金色的透明度
+@function themeBackgroundColor($percent) {
+  @return  rgba(84, 92, 100, $percent)
+};
+
+// 头部的高度
+$headerHeight: 66px;
+// 菜单的宽度
+$menuWidth: 220px;

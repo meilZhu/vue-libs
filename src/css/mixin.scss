@@ -1,0 +1,45 @@
+
+/**=========================================
+*  @desc 定义Mixins模块
+**==========================================*/
+
+// 单行省略
+@mixin ellipse { // 使用时， 引入这个文件，然后在要用的样式下 @include ellipse 即可 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 清除浮动
+@mixin clearfix {
+  *zoom: 1;
+  ::after {
+    content: ' ';
+    width: 0;
+    height: 0;
+    visibility: hidden;
+    display: table;
+    clear: both;
+    overflow: hidden;
+  }
+}
+
+// 转换成行内元素
+@mixin inline {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+// 多行省略 （这里有兼容性问题）
+@mixin ellipses($number) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $number
+}
+
+// 黑色的透明度
+@function blackFade($percent) {
+  @return rgba(0, 0, 0, $perent)
+}

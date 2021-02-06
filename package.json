@@ -4,12 +4,20 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "start": "npm run serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "commander": "^7.0.0",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "element-ui": "^2.15.0",
+    "font-awesome": "^4.7.0",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.1",
+    "vue": "^2.6.11",
+    "vue-router": "^3.5.0",
+    "vuex": "^3.6.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
