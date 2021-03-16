@@ -4,9 +4,16 @@
  * @Author: manyao.zhu
 -->
 <template>
-  <ul class="m_menu" :class="[mode === 'vertical' ? 'm_menu_column' : '', collapsed ? 'm_menu_visible' : '']">
+  <el-menu
+    :default-active="routerConfig.menuIndex"
+    class="m_menu"
+    :class="themeConfig.mode === 'light' ? 'm_menu_light' : ''"
+    @open="handleOpen"
+    @close="handleClose"
+    :collapse="routerConfig.collapsed"
+  >
     <menu-node v-for="(item, index) in menu" :key="index" :item="item"></menu-node>
-  </ul>
+  </el-menu>
 </template>
 
 <script>
@@ -29,16 +36,12 @@
           return []
         }
       },
-      mode: {
-        type: String,
-        default: 'vertical',  //  vertical 纵向， horizontal 横向
-      }
     },
     computed: {
-      ...mapState(['collapsed']),
+      ...mapState(['routerConfig', 'themeConfig']), //  vertical 纵向， horizontal 横向
     },
     methods: {
-      handleSelect() {
+      handleOpen() {
 
       },
       handleClose() {
@@ -51,22 +54,20 @@
 <style lang="scss" scoped>
   @import '~/css/shared.scss';
   .m_menu {
-    width: 100%;
-    display: flex;
     overflow-y: scroll;
-    background: $themeBackgroundColor;
-  }
-  .m_menu_visible {
-    overflow-y: visible;
-  }
-  .m_menu_column {
-    flex-direction: column;
     height: 100%;
+    background: $themeBackgroundColor;
+    border-right-color: $themeBackgroundColor;
+    width: $headerHeight;
   }
-  .m_menu_column::-webkit-scrollbar {
+  .m_menu:not(.el-menu--collapse) {
+    width: $menuWidth;
+  }
+  .m_menu::-webkit-scrollbar {
     display: none;
   }
-  .m_menu:hover {
-    background: themeBackgroundColor(.7);
+  .m_menu_light {
+    background: $activeColor;
+    border-right-color: $borderColor;
   }
 </style>

@@ -15,7 +15,10 @@ const router = new VueRouter({
     {
       path: '/home',
       name: 'home',
-      component: Index
+      component: Index,
+      meta: {
+        title: '首页',
+      }
     },
     {
       path: '*',

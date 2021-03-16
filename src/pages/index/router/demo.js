@@ -5,14 +5,24 @@
  */
 
 const Demo = () => import(/* webpackChunkName: 'demo'*/ '../views/demo/demo.vue')
+const Application = () => import(/* webpackChunkName: 'demo */ '../views/demo/3d-application.vue')
 
 export default [
   {
     path: '/demo',
     name: 'demo',
-    data: {
-      title: '案例'
+    component: Demo,
+    meta: {
+      title: '案例',
+      keepAlive: true
     },
-    component: Demo
+  },
+  {
+    path: '/three-app',
+    name: 'three-app',
+    component: Application,
+    meta: {
+      title: '3d应用'
+    }
   }
 ]

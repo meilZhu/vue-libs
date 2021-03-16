@@ -5,5 +5,5 @@
  */
 
 export const demoState = {
-  demoId: ''
+  demoId: '',
 }

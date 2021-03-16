@@ -1,24 +1,22 @@
+<!--
+ * @fileName: 
+ * @Date: 2021-01-21 10:22:43
+ * @Author: manyao.zhu
+-->
 # vue-demo
 
-## Project setup
+## Project setup 安装依赖
 ```
-yarn install
+npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+npm start
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
+npm run build
 ```
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

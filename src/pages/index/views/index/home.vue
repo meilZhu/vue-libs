@@ -7,6 +7,7 @@
   <div class="main">
     主页
     {{demoId}}
+    <div class="m_css_demo">我的字如题颜色</div>
   </div>
 </template>
 
@@ -23,7 +24,7 @@
       ...mapState(['demoId'])
     },
     mounted() {
-      console.log(this.$route)
+      // console.log(this.$route)
     }
   }
 </script>

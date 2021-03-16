@@ -16,12 +16,13 @@ console.log(program.config)
 module.exports = {
   devServer: {
     proxy: {
-      '/api': {
+      '/swan': {
         target: 'https://swan-dev.nioint.com',
         changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
+      },
+      '/api': {
+        target: 'https://ndqs-firefly-test.nioint.com',
+        changeOrigin: true
       }
     }
   },
@@ -40,6 +41,6 @@ module.exports = {
   chainWebpack: (config) => {
     config.resolve.alias.set('~', resolve('src'))
     config.resolve.alias.set('static', resolve('static'))
-    config.resolve.symlinks(true)  // 修护热替换失败
+    // config.resolve.symlinks(true)  // 修护热替换失败
   },
 }

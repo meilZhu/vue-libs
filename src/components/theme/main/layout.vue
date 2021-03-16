@@ -7,11 +7,19 @@
   <section class="m_layout">
     <m-header></m-header>
     <div class="m_main">
-      <div class="m_menu_content" :class="collapsed ? 'm_menu_content_collapse' : ''">
+      <div class="m_menu_content" :class="routerConfig.collapsed ? 'm_menu_content_collapse' : ''">
         <m-menu :menu="menuList"></m-menu>
       </div>
       <div class="m_main_content">
-        <router-view></router-view>
+        <m-nav-menu></m-nav-menu>
+        <!-- 需要缓存的页面组件 -->
+        <div class="m_router_content">
+          <keep-alive>
+            <router-view v-if="$route.meta.keepAlive"></router-view>
+          </keep-alive>
+          <!-- 不需要缓存的页面组件 -->
+          <router-view v-if="!$route.meta.keepAlive"></router-view>
+        </div>
       </div>
     </div>
   </section>
@@ -20,26 +28,32 @@
 <script>
   import Header from '../header/header'
   import Menu from '../menu/menu'
+  import NavMenu from '../nav/nav_menu'
   import { MENU } from '~/shared/config/menu'
-  import { mapState } from 'vuex'
+  import { handleMenuIndex } from '../../../shared/utils/handle.router.menu'
+  import { mapActions, mapState } from 'vuex'
   export default {
     name: 'layout',
     data() {
       return {
-        menuList: MENU
+        menuList: null,
       }
     },
     components: {
      'm-header': Header,
-     'm-menu': Menu
+     'm-menu': Menu,
+     'm-nav-menu': NavMenu
     },
     computed: {
-      ...mapState(['collapsed'])
+      ...mapState(['routerConfig'])
     },
     mounted() {
+      handleMenuIndex(MENU)
+      this.setRouters(MENU)
+      this.menuList = MENU
     },
     methods: {
-     
+      ...mapActions(['setRouters'])
     }
   }
 </script>
@@ -54,12 +68,21 @@
       display: flex;
       height: calc(100% - 66px);
       .m_menu_content {
-        width: $menuWidth;
-        transition: all .5s;
+        flex-shrink: 0;
       }
-      .m_menu_content_collapse {
-        width: $headerHeight;
+      .m_main_content {
+        flex: 1;
+        .m_router_content {
+          padding: 10px 20px;
+        }
       }
     }
+
+    .m_main::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .m_layout::-webkit-scrollbar {
+    display: none;
   }
 </style>

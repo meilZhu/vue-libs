@@ -4,11 +4,14 @@
  * @Author: manyao.zhu
 -->
 <template>
-  <div class="m_logo" :class="collapsed ? 'm_logo_collapsed' : ''">
-    <el-tooltip class="item" effect="dark" :content="program" placement="right" :disabled="!collapsed">
-      <img class="m_logo_img" :class="collapsed ? 'm_logo_collapse' : ''" :src="collapsed ? '/img/icon.png' : '/img/logo.png'" alt="logo">
+  <div class="m_logo" :class="[routerConfig.collapsed ? 'm_logo_collapsed' : '', themeConfig.mode === 'light' ? 'm_logo_light' : '']">
+    <el-tooltip class="item" effect="dark" :content="themeConfig.program || $t('program')" placement="right" :disabled="!routerConfig.collapsed">
+      <img class="m_logo_img" :class="routerConfig.collapsed ? 'm_logo_collapse' : ''" :src="routerConfig.collapsed ? themeConfig.squareLogo : themeConfig.bigLogo" alt="logo">
     </el-tooltip>
-    <span class="m_program_name" v-if="!collapsed">{{ program }}</span>
+    <el-tooltip class="item" effect="dark" :content="themeConfig.program || $t('program')" placement="right" :disabled="((themeConfig.program && themeConfig.program.length < 5) || ($t('program').length < 5))">
+      <span class="m_program_name" v-if="!routerConfig.collapsed" >{{ themeConfig.program || $t('program') }}</span>
+    </el-tooltip>
+    
   </div>
 </template>
 
@@ -17,16 +20,11 @@
   export default {
     name: 'logo',
     data() {
-      return {
-        program: '前端科技'
-      }
+      return {}
     },
     computed: {
-      ...mapState(['collapsed'])
+      ...mapState(['routerConfig', 'themeConfig'])
     },
-    mounted() {
-      console.log(this.collapsed)
-    }
   }
 </script>
 
@@ -39,7 +37,7 @@
     padding: 0 5px;
     display: flex;
     align-items: center;
-    transition: all .5s;
+    transition: all .3s ease-in-out;
     background: $themeBackgroundColor;
     .m_logo_img {
       width: 131px;
@@ -58,5 +56,9 @@
   .m_logo_collapsed {
     width: $headerHeight;
     justify-content: center;
+  }
+  .m_logo_light {
+    background: $headerBackgroundColor;
+    border-bottom: 1px $borderColor solid;
   }
 </style>
