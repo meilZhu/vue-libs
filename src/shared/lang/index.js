@@ -34,7 +34,7 @@ function loadMessages() {
 }
 
 const { context, messages } = loadMessages();
-console.log(store)
+
 const i18n = new VueI18n({
   locale: store.state.themeConfig.language,
   messages,

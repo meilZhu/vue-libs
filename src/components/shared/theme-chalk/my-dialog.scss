@@ -1,0 +1,74 @@
+.m_dialog {
+  width: 1000px;
+  height: 500px;
+  position: absolute;
+  box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  top: 55px;
+  left: 50px;
+  z-index: 10;
+  background: #fff;
+  // display: block;
+  & > i {
+    position: absolute;
+    z-index: 2;
+  }
+  .m_dialog_bart,
+  .m_dialog_barb {
+    width: 100%;
+    height: 4px;
+    left: -1px;
+    right: -1px;
+    cursor: n-resize;
+  }
+  .m_dialog_bart {
+    top: -1px;
+  }
+  .m_dialog_barb {
+    bottom: -1px;
+  }
+  .m_dialog_barl,
+  .m_dialog_barr {
+    width: 4px;
+    height: 100%;
+    top: -1px;
+    bottom: -1px;
+    cursor: e-resize;
+  }
+  .m_dialog_barl {
+    left: -1px;
+  }
+  .m_dialog_barr {
+    right: -1px;
+  }
+  .m_dialog_bar {
+    width: 10px;
+    height: 10px;
+    right: -1px;
+    bottom: -1px;
+    cursor: nwse-resize;
+  }
+  .m_dialog_content {
+    width: 100%;
+    height: 100%;
+    .m_dialog_header {
+      width: 100%;
+      height: 33px;
+      padding: 0px 15px 4px;
+      margin: 4px 4px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      cursor: move;
+    }
+    .m_dialog_layout {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+}

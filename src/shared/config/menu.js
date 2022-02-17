@@ -33,13 +33,50 @@ export const MENU = [
         route: '/demo',
         name: 'demo',
         query: {id: '1111'},
-        params: {page: 1},
+        params: {page: '12345'},
       },
       {
         icon: 'fa-th-large',
         title: '3d应用',
         route: '/three-app',
         name: 'three-app',
+        query: {id: 'three'}
+      },
+      {
+        icon: 'fa-cubes',
+        title: 'Vue学习案例',
+        route: '/vue-demo',
+        name: 'vue-demo'
+      },
+      {
+        icon: 'fa-list',
+        title: '基础表格',
+        route: '/demo-base-table',
+        name: 'base-table'
+      },
+      {
+        icon: 'fa-pagelines',
+        title: 'AntV G6',
+        route: '/antv-g6',
+        name: 'antv-g6'
+      }
+    ]
+  },
+  {
+    icon: 'fa-cubes',
+    title: '功能模块',
+    children: [
+      {
+        icon: 'fa-file-code-o',
+        title: '创建文件code',
+        route: '/create-file-code',
+        name: 'create-file-code'
+      },
+      {
+        icon: 'fa-delicious',
+        title: '拖拽放大弹窗',
+        route: '/dialog',
+        name: 'dialog'
       }
     ]
   }

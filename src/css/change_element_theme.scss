@@ -2,14 +2,16 @@
 
 @import '~@styleofpicasso/3d-application/src/plugin/package/icon/iconfont.css';
 @import './shared.scss';
+@import './change_element_style';
 
 /* 改变主题色变量 */
-$--color-primary: $themeColor;
+$--color-primary: #f88807;
 
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import "~element-ui/packages/theme-chalk/src/index";
+// @import '~element-ui/lib/theme-chalk/index.css';
 
 // 3d包的自定义样式
 // $--color: rgb(248, 136, 7);
@@ -18,3 +20,6 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 // @import '@styleofpicasso/3d-application/src/plugin/package/css/index.scss';
 @import '~@styleofpicasso/3d-application/dist/index.min.css';
+
+// Font Awesome 字体
+@import '~font-awesome/css/font-awesome.min.css';

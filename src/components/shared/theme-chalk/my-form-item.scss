@@ -1,0 +1,57 @@
+.m_rule_form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  .m_item_content {
+    padding-left: 15px;
+    .m_label_content {
+      position: relative;
+      .m_zh_label,
+      .m_en_label {
+        display: inline-block;
+        position: absolute;
+        height: 20px;
+        line-height: 20px;
+        top: 0;
+        text-align: right;
+        z-index: 1;
+        padding-right: 12px;
+      }
+      .m_zh_no {
+        height: $smallButtonHeight;
+        line-height: $smallButtonHeight;
+      }
+      .m_en_label {
+        top: 20px;
+      }
+      .m_zh_required::before {
+        display: inline-block;
+        content: '*';
+        color: #f56c6c;
+        margin-right: 4px;
+      }
+      /deep/ .el-form-item__content {
+        text-align: left;
+      }
+      .m_checkbox {
+        margin-right: 15px;
+      }
+    }
+
+    .m_form_item_control {
+      width: 100%;
+    }
+    .tc {
+      text-align: center;
+    }
+    .tl {
+      text-align: left;
+    }
+    .tr {
+      text-align: right;
+    }
+    .m_form_rate {
+      margin-top: 6px;
+    }
+  }
+}

@@ -22,6 +22,7 @@ export const themeActions = {
     const config = settings.getConfig()
     commit(MUTATION_MENU.setThemeConfig, config)
   },
+
   // 清除项目主题的配置
   removeThemeConfig: ({commit}) => {
     settings.removeConfig()

@@ -5,8 +5,10 @@
  */
 import VueRouter from 'vue-router'
 import demoRouter from './demo'
+import functionRouter from '~/pages/index/views/function/router'
+console.log(functionRouter);
 
-const Index = () => import(/* webpackChunkName: 'index */ '../views/index/home.vue')
+const Index = () => import(/* webpackChunkName: 'indexs' */ '../views/index/home.vue')
 
 const router = new VueRouter({
   linkActiveClass: 'active-router',
@@ -27,7 +29,8 @@ const router = new VueRouter({
           component: Index
       }
     },
-    ...demoRouter
+    ...demoRouter,
+    ...functionRouter
   ]
 })
 
@@ -35,5 +38,9 @@ const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
 	return originalPush.call(this, location).catch((err) => err)
 }
+
+router.beforeEach((to, from, next) => {
+  next()
+})
 
 export default router

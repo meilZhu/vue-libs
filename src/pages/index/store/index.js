@@ -12,6 +12,7 @@ Vue.use(Vuex)
 import state from './states'
 import mutations from './mutations'
 import actions from './actions'
+import module from './module'
 
 const store = new Vuex.Store({
   state: {
@@ -22,7 +23,8 @@ const store = new Vuex.Store({
   },
   actions: {
     ...actions
-  }
+  },
+  modules: module
 })
 
 export default store

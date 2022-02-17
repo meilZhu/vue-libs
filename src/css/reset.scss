@@ -61,7 +61,8 @@ body {
   height: 100%;
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
-  font-family: '苹方-简', 'microsoft YaHei', 'SimHei', 'Trebuchet MS', Arial, Helvetica, sans-serif;
+  font-family: '苹方-简', 'microsoft YaHei', 'SimHei', 'Trebuchet MS', Arial,
+    Helvetica, sans-serif;
   color: rgba(0, 0, 0, 0.65);
 }
 
@@ -121,6 +122,11 @@ a {
   &:focus {
     outline: none;
   }
+}
+
+ul,
+li {
+  list-style: none;
 }
 
 textarea {

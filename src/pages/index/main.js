@@ -21,14 +21,16 @@ Vue.use(DtTree)
 import Application from '@styleofpicasso/3d-application';
 Vue.use(Application)
 
-import 'font-awesome/css/font-awesome.min.css'
+// import 'font-awesome/css/font-awesome.min.css'
 
 // 国际化处理
 import i18n from '~/shared/lang'
 
 // 自定义工具
 import './shared/utils/router-protect'
-import '~/shared/utils/automatic_logon_component'
+import '~/shared/utils/automatic_logon_component'  // 自动注册基础组件
+import '~/shared/utils/theme/register_layout_component'
+import '~/components/shared/filter'
 // import '~/shared/utils/plugin.register' // 3d自动注册
 
 // 自定义指令

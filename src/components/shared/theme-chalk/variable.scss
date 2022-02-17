@@ -1,0 +1,46 @@
+:root {
+  --theme-color: #f88807;
+}
+
+
+// 主题色
+$themeColor: var(--theme-color) !default;
+
+// 白色
+$activeColor: #fff !default;
+// 常用的字体颜色
+$fontColor: #333 !default;
+// 边框颜色
+$borderColor:#e6e6e6 !default;
+
+// 常用背景色 （用于页面中）
+$backgroundColor: rgb(247, 248, 250) !default;
+
+// 头部背景色
+$headerBackgroundColor: rgb(231, 236, 245) !default;
+
+// 二级头部背景
+$subHeaderBackgroud: #fff !default;
+
+// 主题背景色
+$themeBackgroundColor: rgb(84, 92, 100) !default;
+// 主题触发颜色
+$themeActiveBackgroundColor: rgb(160, 173, 187) !default;
+
+// 主题被金色的透明度
+@function themeBackgroundColor($percent) {
+  @return  rgba(84, 92, 100, $percent)
+};
+
+// 头部的高度
+$headerHeight: 66px !default;
+// 菜单的宽度
+$menuWidth: 220px !default;
+// 二级头部的高度 （存放title的头部）
+$subHeaderHeight: 45px !default;
+
+// button size 为 small 时的高度
+$smallButtonHeight: 32px !default;
+
+// 中等圆角
+$middleRadius: 4px !default;

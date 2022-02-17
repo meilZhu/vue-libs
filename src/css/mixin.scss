@@ -31,6 +31,14 @@
   *zoom: 1;
 }
 
+// 状态样式
+@mixin status {
+  padding: 4px 15px;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 25px;
+}
+
 // 多行省略 （这里有兼容性问题）
 @mixin ellipses($number) {
   display: -webkit-box;

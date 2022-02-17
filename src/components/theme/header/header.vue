@@ -7,10 +7,10 @@
   <section class="m_header">
     <div class="m_header_left">
       <logo></logo>
-      <i class="fa fa_m" :class="routerConfig.collapsed ? 'fa-indent' : 'fa-outdent'" aria-hidden="true" @click="changeCollapsed"></i>
+      <i class="fa fa_m" v-if="themeConfig.layoutComponent === 'header_menu_layout'" :class="routerConfig.collapsed ? 'fa-indent' : 'fa-outdent'" aria-hidden="true" @click="changeCollapsed"></i>
     </div>
     <div class="m_header_center">
-
+      <slot name="menu"></slot>
     </div>
     <div class="m_header_right">
       <tips v-if="!themeConfig.hideTips"></tips>
@@ -66,6 +66,7 @@
       display: flex;
       align-items: center;
       height: 100%;
+      flex-shrink: 0;
       .fa_m {
         font-size: 30px;
         margin-left: 5px;
@@ -76,6 +77,11 @@
       display: flex;
       align-items: center;
       padding-right: 10px;
+      flex-shrink: 0;
+    }
+    .m_header_center {
+      flex: 1;
+      padding: 0 20px;
     }
   }
 </style>

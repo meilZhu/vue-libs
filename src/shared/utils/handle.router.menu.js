@@ -33,8 +33,10 @@ export const handleMenuIndex = (list, index) => {
  */
 export const settingMenuIndex = (list, path) => {
   if (list && list.length) {
+    // 这里对路由进行截取，主要是为了解决动态路由； 再头部nav中不能高亮标识的问题
+    const _arr = path.split('/')
     list.forEach( item => {
-      if (item.route === path) {
+      if (item.route === `/${_arr[1]}`) {
         store.dispatch('setRouterConfig', {prop: 'menuIndex', value: item.index})
         store.dispatch('setRouterConfig', {prop: 'path', value: path})
       }

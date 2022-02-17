@@ -4,7 +4,7 @@
  * @Author: manyao.zhu
 -->
 <template>
-  <div class="m_logo" :class="[routerConfig.collapsed ? 'm_logo_collapsed' : '', themeConfig.mode === 'light' ? 'm_logo_light' : '']">
+  <div class="m_logo" :class="[routerConfig.collapsed ? 'm_logo_collapsed' : '', themeConfig.mode === 'light' || themeConfig.layoutComponent === 'header_layout' ? 'm_logo_light' : '']">
     <el-tooltip class="item" effect="dark" :content="themeConfig.program || $t('program')" placement="right" :disabled="!routerConfig.collapsed">
       <img class="m_logo_img" :class="routerConfig.collapsed ? 'm_logo_collapse' : ''" :src="routerConfig.collapsed ? themeConfig.squareLogo : themeConfig.bigLogo" alt="logo">
     </el-tooltip>

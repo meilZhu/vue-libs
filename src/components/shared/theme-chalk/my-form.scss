@@ -1,0 +1,37 @@
+.m_form_search {
+  width: 100%;
+  .m_search_form_content {
+    width: 100%;
+    height: auto;
+    transition: all 0.5s;
+  }
+  .m_search_form_content_collapsed {
+    height: 50px;
+    overflow: hidden;
+  }
+  .m_search_btn_content {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .m_search_exchange {
+      display: inline-block;
+      width: 89px;
+      height: $smallButtonHeight;
+      line-height: $smallButtonHeight;
+      font-size: 14px;
+      color: $fontColor;
+      cursor: pointer;
+      .fa {
+        margin-left: 5px;
+        font-size: 16px;
+        transition: all 0.3s;
+      }
+      .m_search_exchange_collased {
+        transform: rotateZ(180deg);
+      }
+    }
+    .m_search_exchange:hover {
+      color: $themeColor;
+    }
+  }
+}

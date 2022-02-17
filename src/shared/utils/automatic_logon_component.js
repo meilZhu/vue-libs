@@ -1,5 +1,5 @@
 /*
- * @fileName: 自动组测全局公用组件的工具类
+ * @fileName: 自定义基础组件的自动全局注册
  * @Date: 2021-02-25 11:18:20
  * @Author: manyao.zhu
  */
@@ -9,7 +9,7 @@ import upperFirst from "lodash/upperFirst";
 import camelCase from "lodash/camelCase";
 
 const requireComponent = require.context(
-  "../../components/shared/components/",
+  "~/components/shared/components/",
   true,
   /\w+\.(vue|js)$/
 );
@@ -17,7 +17,7 @@ requireComponent.keys().forEach((fileName) => {
   const componentConfig = requireComponent(fileName);
   const name = fileName.split("/").pop();
   const componentName = upperFirst(camelCase(name.replace(/\.\w+$/, "")));
-  console.log(componentName)
+  console.log('component', componentName)
   Vue.component(
     // 全局注册组件
     componentName,
