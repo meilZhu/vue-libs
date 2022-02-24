@@ -474,6 +474,7 @@
               :limit="item.limit"
               :maxSize="item.maxSize"
               :unit="item.unit"
+              :needDialog="item.needDialog"
               :hideUploadBtn="item.hideUploadBtn"
               @change="formValueChange"
             ></my-upload>

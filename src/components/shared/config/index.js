@@ -395,14 +395,15 @@ export const formCon = [
     label: '上传',
     prop: 'fileList',
     type: 'upload',
-    listType: 'text',
+    listType: 'picture',
     multiple: true,
-    autoUpload: true,
-    url: '/swan/v1/in/carpet/3d/upload',
+    autoUpload: false,
+    // url: '/swan/v1/in/carpet/3d/upload',
     params: {
       target: 'MEAN'
     },
-    limit: 2,
+    limit: 4,
+    // needDialog: true
   }
 ]
 
@@ -411,7 +412,7 @@ export const colData = [
     label: '操作',
     type: 'opr',
     align: 'center',
-    width: '140'
+    width: '140',
   },
   {
     label: '测试姓名',
@@ -455,13 +456,15 @@ export const colData = [
     prop: 'birthday',
     type: 'date',
     width: '240',
-    dateFormat: 'yyyy-MM-dd hh:mm:ss'
+    // dateFormat: 'yyyy-MM-dd hh:mm:ss',
+    headerUserDefine: true,
+    fixed: 'right'
   },
   {
     label: '测试英文姓',
     prop: 'firstName',
     width: '140',
-    type: 'upper'
+    type: 'upper',
   },
   {
     label: '测试英文名',

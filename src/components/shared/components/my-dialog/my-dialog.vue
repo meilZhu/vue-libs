@@ -48,6 +48,7 @@
           background: headerIsTransparent
             ? 'rgab(255,255,255,0)'
             : 'rgb(255,255,255)',
+          'padding-top': headerIsTransparent ? '0px' : '33px',
         }"
         @mousedown="dialogDown"
       >

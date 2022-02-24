@@ -31,9 +31,10 @@
         :disabled="disabled"
         :limit="limit"
         :on-success="onSuccess"
+        :on-error="onError"
         :before-upload="beforeUpload"
-        :on-remove="onRemove"
         :on-change="onChange"
+        :on-remove="onRemove"
       >
         <i
           v-if="autoUpload"
@@ -52,6 +53,7 @@
           v-if="!autoUpload && list.length"
           type="primary"
           size="mini"
+          class="m_active_btn"
           @click="manualUpload"
           >手动上传</el-button
         >
@@ -90,7 +92,159 @@
       </el-upload>
     </template>
 
-    <template v-else> </template>
+    <template v-else>
+      <i
+        class="fa fa-upload m_upload_file"
+        :class="
+          (limit === list.length && hideUploadBtn) || readonly
+            ? 'm_hidden_upload_file_btn'
+            : ''
+        "
+        @click="showUploadDialog = true"
+      ></i>
+      <div class="m_upload_list_content">
+        <ul class="m_upload_list_text" v-if="listType === 'text'">
+          <li class="m_upload_item" v-for="(item, index) in list" :key="index">
+            {{ item.name }}
+            <i class="m_upload_item_remove fa fa-times"></i>
+          </li>
+        </ul>
+        <ul class="m_upload_list_picture" v-if="listType === 'picture'">
+          <li class="m_upload_item" v-for="(file, index) in list" :key="index">
+            <div class="m_upload_item_picture">
+              <img class="m_upload_item_image" :src="file.url" alt="" />
+              <span class="m_upload_item_text">{{ file.name }}</span>
+            </div>
+            <i class="m_upload_item_remove fa fa-times"></i>
+          </li>
+        </ul>
+        <ul class="m_upload_list_image" v-if="listType === 'picture-card'">
+          <li class="m_upload_item" v-for="(file, index) in list" :key="index">
+            <img class="m_upload_item_image" :src="file.url" alt="" />
+            <span class="m_upload_item_actions_content">
+              <span class="m_upload_item_actions">
+                <span
+                  class="m_upload_item_actions_opr"
+                  @click="handlePictureCardPreview(file)"
+                >
+                  <i class="el-icon-zoom-in"></i>
+                </span>
+                <span
+                  class="m_upload_item_actions_opr"
+                  @click="handleDownload(file)"
+                >
+                  <i class="el-icon-download"></i>
+                </span>
+                <span
+                  class="m_upload_item_actions_opr"
+                  @click="handleRemove(file)"
+                >
+                  <i class="el-icon-delete"></i>
+                </span>
+              </span>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <el-dialog
+        title="选择文件"
+        :visible.sync="showUploadDialog"
+        width="30%"
+        :before-close="handleClose"
+      >
+        <el-upload
+          ref="upload"
+          class="m_upload_demo"
+          :class="
+            (limit === list.length && hideUploadBtn) || readonly
+              ? 'upload-hidden'
+              : ''
+          "
+          :drag="drag"
+          :action="url"
+          :headers="headers"
+          :data="params"
+          :name="name"
+          :with-credentials="withCredentials"
+          :show-file-list="showFileList"
+          :accept="accept"
+          :file-list="list"
+          :auto-upload="autoUpload"
+          :http-request="httpRequest"
+          :list-type="listType"
+          :multiple="multiple"
+          :disabled="disabled"
+          :limit="limit"
+          :on-success="onSuccess"
+          :on-error="onError"
+          :before-upload="beforeUpload"
+          :on-change="onChange"
+          :on-remove="onRemove"
+        >
+          <i
+            v-if="autoUpload"
+            class="fa upload-btn"
+            :class="[icon, drag ? 'm_upload_icon' : '']"
+            aria-hidden="true"
+          ></i>
+          <i
+            v-if="!autoUpload"
+            slot="trigger"
+            class="fa upload-btn"
+            :class="[icon, drag ? 'm_upload_icon' : '']"
+            aria-hidden="true"
+          ></i>
+          <el-button
+            v-if="!autoUpload && list.length"
+            type="primary"
+            size="mini"
+            class="m_active_btn"
+            @click="manualUpload"
+            >手动上传</el-button
+          >
+          <div v-if="drag" class="el-upload__text">
+            将文件拖到此处，或<em>点击上传</em>
+          </div>
+
+          <!-- 上传的背景 -->
+          <div
+            v-if="listType === 'picture-card'"
+            slot="file"
+            slot-scope="{ file }"
+          >
+            <img
+              class="el-upload-list__item-thumbnail"
+              :src="file.url"
+              alt=""
+            />
+            <span class="el-upload-list__item-actions">
+              <span
+                class="el-upload-list__item-preview"
+                @click="handlePictureCardPreview(file)"
+              >
+                <i class="el-icon-zoom-in"></i>
+              </span>
+              <span
+                class="el-upload-list__item-delete"
+                @click="handleDownload(file)"
+              >
+                <i class="el-icon-download"></i>
+              </span>
+              <span
+                class="el-upload-list__item-delete"
+                @click="handleRemove(file)"
+              >
+                <i class="el-icon-delete"></i>
+              </span>
+            </span>
+          </div>
+        </el-upload>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="handleClose">取 消</el-button>
+          <el-button type="primary" @click="handleSubmit">确 定</el-button>
+        </span>
+      </el-dialog>
+    </template>
 
     <!-- 图片的展示 -->
     <el-dialog :visible.sync="picatureVisible" width="35%">
@@ -100,6 +254,7 @@
 </template>
 
 <script>
+// import { cloneDeep } from 'lodash'
 export default {
   name: 'MyUpload',
   data() {
@@ -107,6 +262,8 @@ export default {
       picatureVisible: false,
       pictureImageUrl: null,
       isLoading: false,
+
+      showUploadDialog: false,
     }
   },
   computed: {
@@ -261,14 +418,13 @@ export default {
     },
 
     // 立即上传后成功之后
-    onSuccess(res, file, fileList) {
+    onSuccess(res) {
       if (res.result_code !== 'success') {
         return this.$message.error(res.debug_msg || '上传失败')
       }
 
       this.$message.success('上传成功')
 
-      this.list = fileList
       this.$emit('success')
     },
 
@@ -297,15 +453,56 @@ export default {
       this.$emit('change')
     },
 
-    onChange(file, fileList) {
-      console.log(fileList)
+    // 上传失败
+    onError(err, file, fileList) {
       this.list = fileList
-      this.$emit('change')
+    },
+
+    onChange(file, fileList) {
+      console.log(file)
+      if (file.status === 'ready') {
+        this.list = fileList
+      }
+
+      if (file.status === 'success') {
+        const list = []
+        fileList.forEach((item) => {
+          if (item.response.result_code === 'success') {
+            list.push(item)
+          }
+        })
+        this.list = list
+        this.$emit('change')
+      }
     },
 
     // 手动上传
     manualUpload() {
       this.$refs.upload.submit()
+    },
+
+    // 关闭弹窗
+    handleClose() {
+      this.showUploadDialog = false
+      this.handleRemoveFile()
+    },
+
+    // 弹窗的确定事件
+    handleSubmit() {
+      this.showUploadDialog = false
+      this.handleRemoveFile()
+    },
+
+    // 清除没有真正上传的文件
+    handleRemoveFile() {
+      // const list = []
+      // const arr = cloneDeep(this.list)
+      // arr.forEach((item) => {
+      //   if (!item.status || item.status === 'success') {
+      //     list.push(item)
+      //   }
+      // })
+      // this.list = list
     },
   },
 }
@@ -316,17 +513,127 @@ export default {
 .fa {
   color: $themeColor;
 }
-.upload-btn {
-  display: block;
-  margin-right: 10px;
+.m_active_btn {
+  margin-left: 10px;
+  height: 25px;
+}
+.m_upload {
+  width: 100% !important;
+  .upload-demo {
+    width: 100%;
+  }
 }
 /deep/ .upload-hidden {
-  .upload-btn {
+  .el-upload {
     display: none;
   }
 }
 .m_upload_icon {
   font-size: 40px;
   margin-top: 55px;
+}
+
+.m_upload_demo {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.m_upload_file {
+  display: block;
+  height: 28px;
+  line-height: 28px;
+}
+.m_hidden_upload_file_btn {
+  display: none;
+}
+
+/* 图片列表的样式 */
+.m_upload_list_picture {
+  width: 100%;
+  .m_upload_item {
+    flex: 1;
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #c0ccda;
+    border-radius: 6px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-top: 10px;
+    padding: 10px;
+    height: 90px;
+    position: relative;
+    flex: 1;
+    .m_upload_item_picture {
+      display: inline-flex;
+      width: 100%;
+      height: 100%;
+      .m_upload_item_image {
+        width: 70px;
+        height: 70px;
+        margin-right: 10px;
+      }
+      .m_upload_item_text {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+    .m_upload_item_remove {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 14px;
+    }
+  }
+}
+
+/* 卡片类型的列表 */
+.m_upload_list_image {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  .m_upload_item {
+    width: 148px;
+    height: 148px;
+    border-radius: $middleRadius;
+    border: 1px solid #c0ccda;
+    margin: 0 8px 8px 0;
+    display: inline-block;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    .m_upload_item_image {
+      width: 100%;
+    }
+    .m_upload_item_actions_content {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      .m_upload_item_actions {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .m_upload_item_actions_opr {
+          margin: 0 8px;
+          color: #fff;
+          font-size: 18px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .m_upload_item:hover {
+    .m_upload_item_actions_content {
+      display: block;
+    }
+  }
 }
 </style>

@@ -28,6 +28,12 @@
     </my-form>
 
     <my-table :colData="colData" :tableData="tableData">
+      <template v-slot:headerUserDefine="scope">
+        <span v-if="scope.column.prop === 'birthday'"
+          >{{ scope.column.label }}<i class="fa fa-edit"></i
+        ></span>
+      </template>
+
       <template v-slot:opr="scope">
         <i
           class="fa m_table_opr fa-pencil-square-o"
@@ -93,7 +99,7 @@ export default {
           birthday: new Date(),
           statusDesc: '已婚',
           status: 1,
-          firstName: 'sanZHang',
+          firstName: 'sanZHangaaaaaaddddd',
           lastName: 'sanZhang',
         },
         {
@@ -231,6 +237,10 @@ export default {
     selectable(row) {
       console.log(row)
       return row.age === 18
+    },
+
+    styleText(scope) {
+      console.log(scope)
     },
   },
 }

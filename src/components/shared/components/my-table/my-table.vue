@@ -71,167 +71,87 @@
       <template v-for="(item, index) in colData">
         <!-- 操作列 -->
         <el-table-column
-          v-if="item.type === 'opr'"
           :key="index"
           :header-align="item.headerAlign ? item.headerAlign : item.align"
-          :align="item.align"
-          :label="item.label"
-          :class-name="item.class"
-          :fixed="item.fixed"
-          :show-overflow-tooltip="item.showOverflowTooltip"
-          :min-width="item.width"
-        >
-          <template slot-scope="scope">
-            <slot name="opr" :row="scope.row" :rowIndex="scope.$index"></slot>
-          </template>
-        </el-table-column>
-
-        <!-- 用户自定义 -->
-        <el-table-column
-          v-else-if="item.type === 'userDefine'"
-          :key="index"
-          :header-align="item.headerAlign ? item.headerAlign : item.align"
-          :align="item.align"
-          :label="item.label"
           :sortable="item.sort"
-          :class-name="item.class"
-          :resizable="item.resizable || resizable"
-          :fixed="item.fixed"
-          :show-overflow-tooltip="item.showOverflowTooltip"
-          :min-width="item.width"
-        >
-          <template slot-scope="scope">
-            <slot name="userDefine" :row="scope.row" :keys="item.prop"></slot>
-          </template>
-        </el-table-column>
-
-        <!-- 金额 -->
-        <el-table-column
-          v-else-if="item.type === 'money'"
-          :key="index"
-          :header-align="item.headerAlign ? item.headerAlign : item.align"
-          :align="item.align"
           :prop="item.prop"
-          :label="item.label"
-          :sortable="item.sort"
-          :class-name="item.class"
-          :resizable="item.resizable || resizable"
-          :fixed="item.fixed"
-          :show-overflow-tooltip="item.showOverflowTooltip"
-          :min-width="item.width"
-        >
-          <template slot-scope="scope">
-            <span v-if="item.division"
-              >{{ item.moneyType ? item.moneyType + ' ' : ''
-              }}{{ scope.row[item.prop] | money | division }}
-            </span>
-            <span v-else
-              >{{ item.moneyType ? item.moneyType + ' ' : ''
-              }}{{ scope.row[item.prop] | money }}</span
-            >
-          </template>
-        </el-table-column>
-
-        <!-- 数字 -->
-        <el-table-column
-          v-else-if="item.type === 'number'"
-          :key="index"
-          :header-align="item.headerAlign ? item.headerAlign : item.align"
           :align="item.align"
-          :prop="item.prop"
           :label="item.label"
-          :sortable="item.sort"
           :class-name="item.class"
-          :resizable="item.resizable || resizable"
           :fixed="item.fixed"
-          :show-overflow-tooltip="item.showOverflowTooltip"
-          :min-width="item.width"
+          :resizable="item.resizable || resizable"
+          :show-overflow-tooltip="
+            item.showOverflowTooltip || showOverflowTooltip
+          "
+          :min-width="item.minWidth"
+          :width="item.width"
         >
-          <template slot-scope="scope">
-            <span v-if="item.division"
-              >{{ scope.row[item.prop] | decimal(item.decimal) | division }}
-            </span>
-            <span v-else>{{
-              scope.row[item.prop] | decimal(item.decimal)
-            }}</span>
+          <!-- 表头 -->
+          <template slot="header">
+            <!-- 表头自定义 -->
+            <template v-if="item.headerUserDefine">
+              <slot name="headerUserDefine" :column="item"></slot>
+            </template>
+            <!-- 表头默认值 -->
+            <template v-else>
+              <span>{{ item.label }}</span>
+            </template>
           </template>
-        </el-table-column>
 
-        <!-- 大写 -->
-        <el-table-column
-          v-else-if="item.type === 'upper'"
-          :key="index"
-          :header-align="item.headerAlign ? item.headerAlign : item.align"
-          :align="item.align"
-          :prop="item.prop"
-          :label="item.label"
-          :sortable="item.sort"
-          :class-name="item.class"
-          :resizable="item.resizable || resizable"
-          :fixed="item.fixed"
-          :show-overflow-tooltip="item.showOverflowTooltip"
-          :min-width="item.width"
-        >
+          <!-- 表格内容 -->
           <template slot-scope="scope">
-            {{ scope.row[item.prop] | upper }}
-          </template>
-        </el-table-column>
+            <!-- 操作列-->
+            <template v-if="item.type === 'opr'">
+              <slot name="opr" :row="scope.row" :rowIndex="scope.$index"></slot>
+            </template>
 
-        <!-- 小写 -->
-        <el-table-column
-          v-else-if="item.type === 'lower'"
-          :key="index"
-          :header-align="item.headerAlign ? item.headerAlign : item.align"
-          :align="item.align"
-          :prop="item.prop"
-          :label="item.label"
-          :sortable="item.sort"
-          :class-name="item.class"
-          :resizable="item.resizable || resizable"
-          :fixed="item.fixed"
-          :show-overflow-tooltip="item.showOverflowTooltip"
-          :min-width="item.width"
-        >
-          <template slot-scope="scope">
-            {{ scope.row[item.prop] | lower }}
-          </template>
-        </el-table-column>
+            <!-- 用户自定义 -->
+            <template v-else-if="item.type === 'userDefine'">
+              <slot name="userDefine" :row="scope.row" :keys="item.prop"></slot>
+            </template>
 
-        <!-- 日期 -->
-        <el-table-column
-          v-else-if="item.type === 'date'"
-          :key="index"
-          :header-align="item.headerAlign ? item.headerAlign : item.align"
-          :align="item.align"
-          :prop="item.prop"
-          :label="item.label"
-          :sortable="item.sort"
-          :class-name="item.class"
-          :resizable="item.resizable || resizable"
-          :fixed="item.fixed"
-          :show-overflow-tooltip="item.showOverflowTooltip"
-          :min-width="item.width"
-        >
-          <template slot-scope="scope">
-            {{ scope.row[item.prop] | date(item.dateFormat) }}
-          </template>
-        </el-table-column>
+            <!-- 金额 -->
+            <template v-else-if="item.type === 'money'">
+              <span v-if="item.division"
+                >{{ item.moneyType ? item.moneyType + ' ' : ''
+                }}{{ scope.row[item.prop] | money | division }}
+              </span>
+              <span v-else
+                >{{ item.moneyType ? item.moneyType + ' ' : ''
+                }}{{ scope.row[item.prop] | money }}</span
+              >
+            </template>
 
-        <!-- 其他默认 -->
-        <el-table-column
-          v-else
-          :key="index"
-          :header-align="item.headerAlign ? item.headerAlign : item.align"
-          :align="item.align"
-          :prop="item.prop"
-          :label="item.label"
-          :sortable="item.sort"
-          :class-name="item.class"
-          :resizable="item.resizable || resizable"
-          :fixed="item.fixed"
-          :show-overflow-tooltip="item.showOverflowTooltip"
-          :min-width="item.width"
-        >
+            <!-- 数字 -->
+            <template v-else-if="item.type === 'number'">
+              <span v-if="item.division"
+                >{{ scope.row[item.prop] | decimal(item.decimal) | division }}
+              </span>
+              <span v-else>{{
+                scope.row[item.prop] | decimal(item.decimal)
+              }}</span>
+            </template>
+
+            <!-- 大写 -->
+            <template v-else-if="item.type === 'upper'">
+              {{ scope.row[item.prop] | upper }}
+            </template>
+
+            <!-- 小写 -->
+            <template v-else-if="item.type === 'lower'">
+              {{ scope.row[item.prop] | lower }}
+            </template>
+
+            <!-- 日期 -->
+            <template v-else-if="item.type === 'date'">
+              {{ scope.row[item.prop] | date(item.dateFormat || 'yyyy-MM-dd') }}
+            </template>
+
+            <!-- 其他默认值 -->
+            <template v-else>
+              {{ scope.row[item.prop] }}
+            </template>
+          </template>
         </el-table-column>
       </template>
     </el-table>
@@ -314,6 +234,11 @@ export default {
     },
     // 是否全局控制拖拽改变列宽
     resizable: {
+      type: Boolean,
+      default: true,
+    },
+    // 是否超长时展示tooltip
+    showOverflowTooltip: {
       type: Boolean,
       default: true,
     },

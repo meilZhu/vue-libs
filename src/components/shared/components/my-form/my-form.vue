@@ -120,7 +120,7 @@ export default {
     formChange(item, refs) {
       this.form = item
       this.refsForm = refs
-      this.$emit('formChange', item)
+      this.$emit('formChange', { item, refs })
     },
 
     formClear(item) {
