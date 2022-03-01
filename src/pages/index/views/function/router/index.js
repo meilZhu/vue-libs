@@ -6,6 +6,7 @@
 
 const CreateFileCode = () => import(/*webpackChunkName: 'functions'*/ '../pages/create_file_code')
 const Dialog = () => import(/*webpackChunkName: 'functions'*/ '../pages/dialog')
+const RichText = () => import(/*webpackChunkName: 'function'*/ '../pages/rich_text')
 
 export default [
   {
@@ -22,6 +23,14 @@ export default [
     component: Dialog,
     meta: {
       title: '拖拽放大弹窗'
+    }
+  },
+  {
+    path: '/rich-text',
+    name: 'rich-text',
+    component: RichText,
+    meta: {
+      title: '富文本编辑'
     }
   }
 ]

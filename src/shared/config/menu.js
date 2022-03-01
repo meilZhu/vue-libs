@@ -77,6 +77,12 @@ export const MENU = [
         title: '拖拽放大弹窗',
         route: '/dialog',
         name: 'dialog'
+      },
+      {
+        icon: 'fa-file-word-o',
+        title: '富文本编辑',
+        route: '/rich-text',
+        name: 'rich-text'
       }
     ]
   }
