@@ -8,7 +8,6 @@
     class="m_theme_picker"
     popper-class="m_theme_picker_dropdown"
     v-model="color"
-    :show-alpha="true"
     :predefine="themeConfig.colors || preColors"
     :size="size"
   >

@@ -119,9 +119,15 @@ const getThemeCluster = (theme) => {
   }
 
   const clusters = [theme]
+  // for (let i = 0; i <= 9; i++) {
+  //   clusters.push(theme.includes('rgb') || theme.includes('hsv') || theme.includes('hsl') ? theme : tintColor(theme, Number((i / 10).toFixed(2))))
+  // }
+  // clusters.push(theme.includes('rgb') || theme.includes('hsv') || theme.includes('hsl') ? theme : shadeColor(theme, 0.1))
+
   for (let i = 0; i <= 9; i++) {
     clusters.push(tintColor(theme, Number((i / 10).toFixed(2))))
   }
   clusters.push(shadeColor(theme, 0.1))
+
   return clusters
 }

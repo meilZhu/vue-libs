@@ -7,7 +7,7 @@
 <template>
   <section class="rich_text_content">
     <div class="m_text">
-      <my-rich-text :edit="edit"></my-rich-text>
+      <my-rich-text :edit="edit" :html.sync="textValue"></my-rich-text>
       <el-button @click="changeStatus">change</el-button>
     </div>
   </section>
@@ -18,12 +18,14 @@ export default {
   name: '',
   data() {
     return {
-      edit: false,
+      edit: true,
+      textValue: '你好',
     }
   },
   methods: {
     changeStatus() {
       this.edit = !this.edit
+      console.log(this.textValue)
     },
   },
 }
