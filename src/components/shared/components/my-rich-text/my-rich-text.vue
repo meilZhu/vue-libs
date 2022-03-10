@@ -12,8 +12,6 @@
 <script>
 import tinymce from 'tinymce/tinymce'
 import 'tinymce/themes/silver'
-import Vue from 'vue'
-const bus = new Vue()
 
 export default {
   name: 'MyRichText',
@@ -50,6 +48,7 @@ export default {
       tinymce.editors[this.tinymceId].destroy()
       tinymce.init(this.editorInit)
       tinymce.editors[this.tinymceId].setMode(val ? 'design' : 'readonly')
+      this.handleTinymceStyle()
     },
   },
   data() {
@@ -79,8 +78,22 @@ export default {
       },
     }
     tinymce.init(this.editorInit)
+    this.handleTinymceStyle()
   },
-  methods: {},
+  methods: {
+    // 处理富文本底部的样式
+    handleTinymceStyle() {
+      const dom = this.$el.querySelector('.tox-tinymce')
+      if (dom) {
+        const footer = dom.querySelector('.tox-statusbar')
+        if (this.edit) {
+          footer.style.display = 'block'
+        } else {
+          footer.style.display = 'none'
+        }
+      }
+    },
+  },
   beforeDestroy() {
     tinymce.editors[this.tinymceId].destroy()
   },
