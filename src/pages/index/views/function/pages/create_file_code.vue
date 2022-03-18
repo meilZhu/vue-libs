@@ -103,7 +103,6 @@ export default {
 
     // 左侧菜单的拖拽结束事件
     dragEnd() {
-      console.log(this.dragMoveItem)
       if (!this.dragMoveItem) {
         this.resetControl()
       } else {
